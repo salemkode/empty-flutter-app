@@ -10,29 +10,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Lecture 6 - Layouts & Multi-Child Widgets',
+      title: 'Lecture 8 - Handling User Input',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const CVProject(),
+      home: const UserInputPage(),
     );
   }
 }
 
-class CVProject extends StatelessWidget {
-  const CVProject({super.key});
+class UserInputPage extends StatefulWidget {
+  const UserInputPage({super.key});
 
+  @override
+  State<UserInputPage> createState() => _UserInputPageState();
+}
+
+class _UserInputPageState extends State<UserInputPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('CV Project'),
+        title: const Text('Handling User Input'),
       ),
       body: const Center(
         child: Text(
-          'CV Project - To be implemented manually',
+          'Lecture 8 - Handling User Input',
           style: TextStyle(fontSize: 20),
         ),
       ),
