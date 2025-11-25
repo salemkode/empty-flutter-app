@@ -10,94 +10,87 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Assignment 2 - TextField',
+      title: 'Assignment 3 - BottomNavigationBar',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const TextFieldPage(),
+      home: const MainNavigationPage(),
     );
   }
 }
 
-class TextFieldPage extends StatefulWidget {
-  const TextFieldPage({super.key});
+class MainNavigationPage extends StatefulWidget {
+  const MainNavigationPage({super.key});
 
   @override
-  State<TextFieldPage> createState() => _TextFieldPageState();
+  State<MainNavigationPage> createState() => _MainNavigationPageState();
 }
 
-class _TextFieldPageState extends State<TextFieldPage> {
-  final TextEditingController _firstController = TextEditingController();
-  final TextEditingController _secondController = TextEditingController();
+class _MainNavigationPageState extends State<MainNavigationPage> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [
+    const HomePage(),
+    const SearchPage(),
+    const SettingsPage(),
+    const AccountPage(),
+  ];
 
   @override
-  void dispose() {
-    _firstController.dispose();
-    _secondController.dispose();
-    super.dispose();
-  }
-
-  void _copyText() {
-    setState(() {
-      _secondController.text = _firstController.text;
-    });
-  }
-
-  void _navigateToSecondPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SecondPage(data: _firstController.text),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'الرئيسية',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'البحث',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'الإعدادات',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'الحساب',
+          ),
+        ],
       ),
     );
   }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Assignment 2 - TextField'),
+        title: const Text('الصفحة الرئيسية'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
-              controller: _firstController,
-              decoration: const InputDecoration(
-                labelText: 'الحقل الأول',
-                hintText: 'أدخل النص هنا',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: _secondController,
-              decoration: const InputDecoration(
-                labelText: 'الحقل الثاني',
-                hintText: 'سيتم طباعة النص هنا',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: _copyText,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-              ),
-              child: const Text('نسخ النص من الحقل الأول إلى الثاني'),
-            ),
-            const SizedBox(height: 15),
-            ElevatedButton(
-              onPressed: _navigateToSecondPage,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                backgroundColor: Colors.green,
-              ),
-              child: const Text('الانتقال إلى الصفحة الثانية'),
+            Icon(Icons.home, size: 80, color: Colors.deepPurple),
+            SizedBox(height: 20),
+            Text(
+              'مرحباً بك في الصفحة الرئيسية',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -106,40 +99,81 @@ class _TextFieldPageState extends State<TextFieldPage> {
   }
 }
 
-class SecondPage extends StatelessWidget {
-  final String data;
-
-  const SecondPage({super.key, required this.data});
+class SearchPage extends StatelessWidget {
+  const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('الصفحة الثانية'),
+        title: const Text('صفحة البحث'),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'البيانات المرسلة من الصفحة الأولى:',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                data.isEmpty ? 'لا توجد بيانات' : data,
-                style: const TextStyle(fontSize: 24, color: Colors.deepPurple),
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('العودة'),
-              ),
-            ],
-          ),
+      body: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.search, size: 80, color: Colors.deepPurple),
+            SizedBox(height: 20),
+            Text(
+              'صفحة البحث',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('صفحة الإعدادات'),
+      ),
+      body: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.settings, size: 80, color: Colors.deepPurple),
+            SizedBox(height: 20),
+            Text(
+              'صفحة الإعدادات',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AccountPage extends StatelessWidget {
+  const AccountPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('صفحة الحساب'),
+      ),
+      body: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.person, size: 80, color: Colors.deepPurple),
+            SizedBox(height: 20),
+            Text(
+              'صفحة الحساب',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ),
     );
