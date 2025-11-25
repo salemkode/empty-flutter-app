@@ -10,37 +10,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Lecture 5 - Widgets & UI Basics',
+      title: 'Lecture 6 - Layouts & Multi-Child Widgets',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const TasbeehApp(),
+      home: const CVProject(),
     );
   }
 }
 
-class TasbeehApp extends StatefulWidget {
-  const TasbeehApp({super.key});
-
-  @override
-  State<TasbeehApp> createState() => _TasbeehAppState();
-}
-
-class _TasbeehAppState extends State<TasbeehApp> {
-  // TODO: Implement Tasbeeh App
-  // This will be filled manually
+class CVProject extends StatelessWidget {
+  const CVProject({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Tasbeeh App'),
+        title: const Text('CV Project'),
       ),
       body: const Center(
         child: Text(
-          'Tasbeeh App - To be implemented',
+          'CV Project - To be implemented manually',
           style: TextStyle(fontSize: 20),
         ),
       ),
