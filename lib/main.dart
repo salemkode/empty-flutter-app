@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Assignment 3 - BottomNavigationBar',
+      title: 'Assignment 4 - BottomNavigationBar',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -72,8 +72,29 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final TextEditingController _firstController = TextEditingController();
+  final TextEditingController _secondController = TextEditingController();
+
+  @override
+  void dispose() {
+    _firstController.dispose();
+    _secondController.dispose();
+    super.dispose();
+  }
+
+  void _copyText() {
+    setState(() {
+      _secondController.text = _firstController.text;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,15 +103,35 @@ class HomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('الصفحة الرئيسية'),
       ),
-      body: const Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.home, size: 80, color: Colors.deepPurple),
-            SizedBox(height: 20),
-            Text(
-              'مرحباً بك في الصفحة الرئيسية',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            TextField(
+              controller: _firstController,
+              decoration: const InputDecoration(
+                labelText: 'الحقل الأول',
+                hintText: 'أدخل النص هنا',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextField(
+              controller: _secondController,
+              decoration: const InputDecoration(
+                labelText: 'الحقل الثاني',
+                hintText: 'سيتم طباعة النص هنا',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: _copyText,
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              ),
+              child: const Text('نسخ النص من الحقل الأول إلى الثاني'),
             ),
           ],
         ),
@@ -104,23 +145,48 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // List of sample items for the ListView
+    final List<String> items = List.generate(
+      20,
+      (index) => 'عنصر البحث ${index + 1}',
+    );
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('صفحة البحث'),
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.search, size: 80, color: Colors.deepPurple),
-            SizedBox(height: 20),
-            Text(
-              'صفحة البحث',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      body: ListView.builder(
+        itemCount: items.length,
+        padding: const EdgeInsets.all(8.0),
+        itemBuilder: (context, index) {
+          return Card(
+            margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.deepPurple,
+                child: Text(
+                  '${index + 1}',
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
+              title: Text(
+                items[index],
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text('وصف العنصر ${index + 1}'),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('تم النقر على: ${items[index]}'),
+                    duration: const Duration(seconds: 1),
+                  ),
+                );
+              },
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -136,18 +202,44 @@ class SettingsPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('صفحة الإعدادات'),
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.settings, size: 80, color: Colors.deepPurple),
-            SizedBox(height: 20),
-            Text(
-              'صفحة الإعدادات',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          const ListTile(
+            leading: Icon(Icons.notifications),
+            title: Text('الإشعارات'),
+            subtitle: Text('إدارة إعدادات الإشعارات'),
+            trailing: Icon(Icons.arrow_forward_ios),
+          ),
+          const Divider(),
+          const ListTile(
+            leading: Icon(Icons.language),
+            title: Text('اللغة'),
+            subtitle: Text('اختر اللغة المفضلة'),
+            trailing: Icon(Icons.arrow_forward_ios),
+          ),
+          const Divider(),
+          const ListTile(
+            leading: Icon(Icons.dark_mode),
+            title: Text('الوضع الليلي'),
+            subtitle: Text('تفعيل الوضع الليلي'),
+            trailing: Icon(Icons.arrow_forward_ios),
+          ),
+          const Divider(),
+          const ListTile(
+            leading: Icon(Icons.storage),
+            title: Text('التخزين'),
+            subtitle: Text('إدارة مساحة التخزين'),
+            trailing: Icon(Icons.arrow_forward_ios),
+          ),
+          const Divider(),
+          const ListTile(
+            leading: Icon(Icons.info),
+            title: Text('حول التطبيق'),
+            subtitle: Text('معلومات عن التطبيق'),
+            trailing: Icon(Icons.arrow_forward_ios),
+          ),
+        ],
       ),
     );
   }
@@ -163,18 +255,90 @@ class AccountPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('صفحة الحساب'),
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.person, size: 80, color: Colors.deepPurple),
-            SizedBox(height: 20),
-            Text(
-              'صفحة الحساب',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(20.0),
+            color: Theme.of(context).colorScheme.primaryContainer,
+            child: Column(
+              children: [
+                const CircleAvatar(
+                  radius: 50,
+                  backgroundColor: Colors.deepPurple,
+                  child: Icon(
+                    Icons.person,
+                    size: 60,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'اسم المستخدم',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'user@example.com',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(16.0),
+              children: [
+                const ListTile(
+                  leading: Icon(Icons.edit),
+                  title: Text('تعديل الملف الشخصي'),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                ),
+                const Divider(),
+                const ListTile(
+                  leading: Icon(Icons.lock),
+                  title: Text('تغيير كلمة المرور'),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                ),
+                const Divider(),
+                const ListTile(
+                  leading: Icon(Icons.payment),
+                  title: Text('طرق الدفع'),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                ),
+                const Divider(),
+                const ListTile(
+                  leading: Icon(Icons.history),
+                  title: Text('سجل النشاطات'),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const Icon(Icons.logout, color: Colors.red),
+                  title: const Text(
+                    'تسجيل الخروج',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  onTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('تم تسجيل الخروج'),
+                        duration: Duration(seconds: 1),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
