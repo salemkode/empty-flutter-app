@@ -1,16 +1,31 @@
-# flutter_cource
+# Flutter Course
 
-A new Flutter project.
+A Flutter project for learning Flutter development.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project contains various Flutter lectures and assignments organized in different branches.
 
-A few resources to get you started if this is your first Flutter project:
+### Branches
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- `main` - Main project template
+- `lecture-5-widgets-ui-basics` - Widgets and UI basics
+- `lecture-6-layouts-multi-child` - Layouts and multi-child widgets
+- `lecture-8-user-input` - User input handling
+- `lecture-9-navigation` - Navigation examples
+- `lecture-10-shared-preferences` - SharedPreferences and file management
+- `assignment-2` - Assignment 2
+- `assignment-3` - Assignment 3
+- `assignment-4` - Assignment 4
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Setup
+
+1. Clone the repository
+2. Run `flutter pub get` to install dependencies
+3. Switch to the desired branch
+4. Run `flutter run` to start the app
+
+## Resources
+
+- [Flutter Documentation](https://docs.flutter.dev/)
+- [Dart Documentation](https://dart.dev/)
