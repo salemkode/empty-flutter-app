@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const Scaffold(
         body: Center(
-          child: Text('Flutter Course Project'),
+          child: Text('Explore branches to see the projects'),
         ),
       ),
     );
