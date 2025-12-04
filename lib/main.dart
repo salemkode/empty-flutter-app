@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'sign_in_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,49 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Course',
+      title: 'Login System',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Scaffold(
-        body: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-              ],
-            ),
-          ),
-        ),
-      ),
+      home: const SignInPage(),
     );
   }
 }
