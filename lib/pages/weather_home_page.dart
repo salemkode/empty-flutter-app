@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 import '../widgets/liquid_background.dart';
 import '../widgets/glass_container.dart';
 import '../app_colors.dart';
-import '../services/weather_service.dart';
-import '../models/weather_model.dart';
+import '../services/static_weather_service.dart';
 import '../providers/settings_provider.dart';
+import '../utils/weather_utils.dart';
 
 class WeatherHomePage extends StatefulWidget {
   const WeatherHomePage({super.key});
@@ -15,73 +15,6 @@ class WeatherHomePage extends StatefulWidget {
 }
 
 class _WeatherHomePageState extends State<WeatherHomePage> {
-  late Future<WeatherData> _weatherFuture;
-  late WeatherService _weatherService;
-  double _currentLat = 0;
-  double _currentLon = 0;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final settings = Provider.of<SettingsProvider>(context, listen: false);
-    // Only update if location changed
-    if (_currentLat != settings.selectedLat || _currentLon != settings.selectedLon) {
-      _currentLat = settings.selectedLat;
-      _currentLon = settings.selectedLon;
-      _updateWeather();
-    }
-  }
-
-  void _updateWeather() {
-    _weatherService = WeatherService(
-      lat: _currentLat,
-      lon: _currentLon,
-    );
-    setState(() {
-      _weatherFuture = _weatherService.fetchWeather();
-    });
-  }
-
-  String _getWeatherStatus(int code) {
-    final now = DateTime.now();
-    final settings = Provider.of<SettingsProvider>(context, listen: false);
-    final isDayTime = _isDayTime(now, settings.selectedLat, settings.selectedLon);
-    
-    if (code == 0) {
-      return isDayTime ? 'مشمس' : 'صافٍ'; // Clear Sky - Day/Night
-    }
-    if (code >= 1 && code <= 3) return 'غائم جزئياً'; // Partly Cloudy - generic
-    if (code == 3) return 'غائم'; // Cloudy
-    if (code >= 45 && code <= 48) return 'ضبابي'; // Foggy
-    if (code >= 51 && code <= 67) return 'ماطر'; // Rainy
-    if (code >= 71 && code <= 77) return 'مثلج'; // Snowy
-    if (code >= 80 && code <= 82) return 'زخات مطر'; // Rain Showers
-    if (code >= 95) return 'عاصفة رعدية'; // Thunderstorm
-    if (code == 63) return 'ماطر'; // Custom code for rain
-    return 'غير معروف'; // Unknown
-  }
-
-  bool _isDayTime(DateTime time, double lat, double lon) {
-    // Simple approximation: check if current hour is between 6 AM and 8 PM
-    final hour = time.hour;
-    return hour >= 6 && hour < 20;
-  }
-
-  IconData _getWeatherIcon(int code) {
-    final now = DateTime.now();
-    final settings = Provider.of<SettingsProvider>(context, listen: false);
-    final isDayTime = _isDayTime(now, settings.selectedLat, settings.selectedLon);
-    
-    if (code == 0) {
-      return isDayTime ? Icons.wb_sunny_rounded : Icons.nightlight_round;
-    }
-    if (code == 3) return Icons.wb_cloudy_rounded; // Specific cloudy
-    if (code >= 1 && code <= 3) return Icons.wb_cloudy_rounded;
-    if (code >= 51) return Icons.water_drop_rounded;
-    if (code == 63) return Icons.water_drop_rounded; // Rain
-    return isDayTime ? Icons.wb_sunny_rounded : Icons.nightlight_round;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,44 +22,24 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
         child: SafeArea(
           child: Consumer<SettingsProvider>(
             builder: (context, settings, child) {
-              return FutureBuilder<WeatherData>(
-                future: _weatherFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(color: Colors.white),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Center(
-                      child: Text(
-                        'خطأ: ${snapshot.error}',
-                        style: const TextStyle(color: Colors.white),
-                        textDirection: TextDirection.rtl,
-                      ),
-                    );
-                  } else if (!snapshot.hasData) {
-                    return const Center(
-                      child: Text(
-                        'لا توجد بيانات',
-                        style: TextStyle(color: Colors.white),
-                        textDirection: TextDirection.rtl,
-                      ),
-                    );
-                  }
+              final weather = StaticWeatherService.getWeatherDataByCity(
+                settings.selectedCity,
+              );
 
-                  final weather = snapshot.data!;
-                  final status = _getWeatherStatus(weather.weatherCode);
-                  final icon = _getWeatherIcon(weather.weatherCode);
+              final status = WeatherUtils.getWeatherCondition(
+                weather.weatherCode,
+              );
+              final icon = WeatherUtils.getWeatherIcon(weather.weatherCode);
 
-                  // Unit conversions
-                  final temp = settings
-                      .convertTemp(weather.currentTemp)
-                      .round();
-                  final wind = settings.convertSpeed(weather.windSpeed).round();
-                  final tempUnit = settings.tempUnit;
-                  final windUnit = settings.speedUnit;
+              // Unit conversions
+              final temp = settings
+                  .convertTemp(weather.currentTemp)
+                  .round();
+              final wind = settings.convertSpeed(weather.windSpeed).round();
+              final tempUnit = settings.tempUnit;
+              final windUnit = settings.speedUnit;
 
-                  return SingleChildScrollView(
+              return SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
@@ -203,7 +116,6 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
 
                           const SizedBox(height: 20),
 
-
                           const SizedBox(height: 20),
 
                           const SizedBox(
@@ -213,8 +125,6 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                       ),
                     ),
                   );
-                },
-              );
             },
           ),
         ),

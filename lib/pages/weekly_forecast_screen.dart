@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 import '../widgets/liquid_background.dart';
 import '../widgets/glass_container.dart';
 import '../app_colors.dart';
-import '../services/weather_service.dart';
-import '../models/weather_model.dart';
+import '../services/static_weather_service.dart';
 import '../providers/settings_provider.dart';
+import '../utils/weather_utils.dart';
 
 class WeeklyForecastScreen extends StatefulWidget {
   const WeeklyForecastScreen({super.key});
@@ -15,32 +15,6 @@ class WeeklyForecastScreen extends StatefulWidget {
 }
 
 class _WeeklyForecastScreenState extends State<WeeklyForecastScreen> {
-  late Future<WeatherData> _weatherFuture;
-  late WeatherService _weatherService;
-  double _currentLat = 0;
-  double _currentLon = 0;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final settings = Provider.of<SettingsProvider>(context, listen: false);
-    // Only update if location changed
-    if (_currentLat != settings.selectedLat || _currentLon != settings.selectedLon) {
-      _currentLat = settings.selectedLat;
-      _currentLon = settings.selectedLon;
-      _updateWeather();
-    }
-  }
-
-  void _updateWeather() {
-    _weatherService = WeatherService(
-      lat: _currentLat,
-      lon: _currentLon,
-    );
-    setState(() {
-      _weatherFuture = _weatherService.fetchWeather();
-    });
-  }
 
   String _getDay(String dateStr) {
     final date = DateTime.parse(dateStr);
@@ -77,12 +51,6 @@ class _WeeklyForecastScreenState extends State<WeeklyForecastScreen> {
     }
   }
 
-  String _getStatus(int code) {
-    if (code == 0) return 'مشمس';
-    if (code >= 1 && code <= 3) return 'غائم جزئياً';
-    if (code >= 51) return 'ماطر';
-    return 'غائم';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,36 +67,23 @@ class _WeeklyForecastScreenState extends State<WeeklyForecastScreen> {
         child: SafeArea(
           child: Consumer<SettingsProvider>(
             builder: (context, settings, child) {
-              return FutureBuilder<WeatherData>(
-                future: _weatherFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(color: Colors.white),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Center(
-                      child: Text(
-                        'خطأ: ${snapshot.error}',
-                        style: const TextStyle(color: Colors.white),
-                        textDirection: TextDirection.rtl,
-                      ),
-                    );
-                  } else if (!snapshot.hasData) {
-                    return const Center(
-                      child: Text(
-                        'لا توجد بيانات',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    );
-                  }
-
-                  final dailyList = snapshot.data!.dailyForecasts;
-                  return ListView.builder(
+              final weather = StaticWeatherService.getWeatherDataByCity(
+                settings.selectedCity,
+              );
+              final dailyList = weather.dailyForecasts;
+              
+              return ListView.builder(
                     padding: const EdgeInsets.all(20),
                     itemCount: dailyList.length,
                     itemBuilder: (context, index) {
                       final day = dailyList[index];
+                      
+                      final status = WeatherUtils.getWeatherCondition(
+                        day.weatherCode,
+                      );
+                      final icon = WeatherUtils.getWeatherIcon(
+                        day.weatherCode,
+                      );
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 15.0),
                         child: GlassContainer(
@@ -154,14 +109,12 @@ class _WeeklyForecastScreenState extends State<WeeklyForecastScreen> {
                                 Row(
                                   children: [
                                     Icon(
-                                      day.weatherCode < 3
-                                          ? Icons.wb_sunny
-                                          : Icons.wb_cloudy,
+                                      icon,
                                       color: Colors.white,
                                     ),
                                     const SizedBox(width: 10),
                                     Text(
-                                      _getStatus(day.weatherCode),
+                                      status,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium
@@ -191,8 +144,6 @@ class _WeeklyForecastScreenState extends State<WeeklyForecastScreen> {
                       );
                     },
                   );
-                },
-              );
             },
           ),
         ),

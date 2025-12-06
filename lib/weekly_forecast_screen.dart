@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'liquid_background.dart';
 import 'glass_container.dart';
 import 'app_colors.dart';
-import 'services/weather_service.dart';
+import 'services/static_weather_service.dart';
 import 'models/weather_model.dart';
-
 
 class WeeklyForecastScreen extends StatefulWidget {
   const WeeklyForecastScreen({super.key});
@@ -15,7 +14,7 @@ class WeeklyForecastScreen extends StatefulWidget {
 
 class _WeeklyForecastScreenState extends State<WeeklyForecastScreen> {
   late Future<WeatherData> _weatherFuture;
-  final WeatherService _weatherService = WeatherService();
+  final StaticWeatherService _weatherService = StaticWeatherService();
 
   @override
   void initState() {
@@ -28,16 +27,16 @@ class _WeeklyForecastScreenState extends State<WeeklyForecastScreen> {
     final dayName = date.weekday == 1
         ? 'Mon'
         : date.weekday == 2
-            ? 'Tue'
-            : date.weekday == 3
-                ? 'Wed'
-                : date.weekday == 4
-                    ? 'Thu'
-                    : date.weekday == 5
-                        ? 'Fri'
-                        : date.weekday == 6
-                            ? 'Sat'
-                            : 'Sun';
+        ? 'Tue'
+        : date.weekday == 3
+        ? 'Wed'
+        : date.weekday == 4
+        ? 'Thu'
+        : date.weekday == 5
+        ? 'Fri'
+        : date.weekday == 6
+        ? 'Sat'
+        : 'Sun';
     switch (dayName) {
       case 'Mon':
         return 'الاثنين';
