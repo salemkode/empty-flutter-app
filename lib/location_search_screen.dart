@@ -1,30 +1,118 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
-import 'liquid_background.dart';
-import 'glass_container.dart';
-import 'app_theme.dart';
+import 'widgets/liquid_background.dart';
+import 'widgets/glass_container.dart';
 
 class LocationSearchScreen extends StatelessWidget {
-  const LocationSearchScreen({super.key});
+  final VoidCallback onBack;
+
+  const LocationSearchScreen({super.key, required this.onBack});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: const Text('Manage Locations'),
-        centerTitle: true,
-      ),
+      resizeToAvoidBottomInset: false, // Prevent resize when keyboard opens
       body: LiquidBackground(
         child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                // Search Bar
-                GlassContainer(
+          child: Stack(
+            children: [
+              // Main Content
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 100.0,
+                ), // Space for bottom search bar
+                child: Column(
+                  children: [
+                    // Custom App Bar Area
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0,
+                        vertical: 10.0,
+                      ),
+                      child: Row(
+                        children: [
+                          IconButton(
+                            onPressed: onBack,
+                            icon: const Icon(
+                              Icons.arrow_back_ios,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const Expanded(
+                            child: Text(
+                              'Search City',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 48), // Balance for back button
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    // Saved Locations (Yemen Cities)
+                    Expanded(
+                      child: ListView(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        children: [
+                          _buildLocationItem(
+                            context,
+                            'Sana\'a',
+                            '18°',
+                            'Cloudy',
+                            false,
+                          ),
+                          const SizedBox(height: 15),
+                          _buildLocationItem(
+                            context,
+                            'Aden',
+                            '32°',
+                            'Sunny',
+                            false,
+                          ),
+                          const SizedBox(height: 15),
+                          _buildLocationItem(
+                            context,
+                            'Mukalla',
+                            '29°',
+                            'Clear',
+                            false,
+                          ),
+                          const SizedBox(height: 15),
+                          _buildLocationItem(
+                            context,
+                            'Seiyun',
+                            '34°',
+                            'Sunny',
+                            true,
+                          ),
+                          const SizedBox(height: 15),
+                          _buildLocationItem(
+                            context,
+                            'Shibam',
+                            '33°',
+                            'Sunny',
+                            false,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Bottom Search Bar
+              Positioned(
+                left: 20,
+                right: 20,
+                bottom: 20,
+                child: GlassContainer(
                   height: 60,
                   borderRadius: BorderRadius.circular(30),
                   child: Padding(
@@ -38,7 +126,7 @@ class LocationSearchScreen extends StatelessWidget {
                         const SizedBox(width: 10),
                         Expanded(
                           child: TextField(
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: 'Search City...',
                               hintStyle: TextStyle(
                                 color: AppColors.textSecondary,
@@ -46,47 +134,16 @@ class LocationSearchScreen extends StatelessWidget {
                               border: InputBorder.none,
                             ),
                             style: const TextStyle(color: Colors.white),
+                            onTapOutside: (event) =>
+                                FocusManager.instance.primaryFocus?.unfocus(),
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-
-                const SizedBox(height: 30),
-
-                // Saved Locations
-                Expanded(
-                  child: ListView(
-                    children: [
-                      _buildLocationItem(
-                        context,
-                        'Montreal, Canada',
-                        '19°',
-                        'Rainy',
-                        true,
-                      ),
-                      const SizedBox(height: 15),
-                      _buildLocationItem(
-                        context,
-                        'Toronto, Canada',
-                        '22°',
-                        'Cloudy',
-                        false,
-                      ),
-                      const SizedBox(height: 15),
-                      _buildLocationItem(
-                        context,
-                        'Tokyo, Japan',
-                        '28°',
-                        'Sunny',
-                        false,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -94,12 +151,12 @@ class LocationSearchScreen extends StatelessWidget {
   }
 
   Widget _buildLocationItem(
-      BuildContext context,
-      String city,
-      String temp,
-      String condition,
-      bool isCurrent,
-      ) {
+    BuildContext context,
+    String city,
+    String temp,
+    String condition,
+    bool isCurrent,
+  ) {
     return GlassContainer(
       height: 100,
       child: Padding(

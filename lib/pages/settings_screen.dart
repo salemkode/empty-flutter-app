@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'liquid_background.dart';
-import 'glass_container.dart';
-import 'app_colors.dart';
-import 'providers/settings_provider.dart';
+import '../widgets/liquid_background.dart';
+import '../widgets/glass_container.dart';
+import '../app_colors.dart';
+import '../providers/settings_provider.dart';
+import '../constants/locations.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -54,7 +55,10 @@ class SettingsScreen extends StatelessWidget {
                           onChanged: (value) {
                             settings.toggleUnits(value);
                           },
-                          activeColor: AppColors.accentColor,
+                          activeColor: Colors.white,
+                          activeTrackColor: AppColors.accentColor,
+                          inactiveThumbColor: Colors.white54,
+                          inactiveTrackColor: Colors.white24,
                         ),
                       ),
                     ),
@@ -139,19 +143,7 @@ class SettingsScreen extends StatelessWidget {
   }
 
   void _showLocationPicker(BuildContext context, SettingsProvider settings) {
-    final locations = [
-      {"city": "سيئون", "lat": 15.9831, "lon": 48.8314},
-      {"city": "صنعاء", "lat": 15.369445, "lon": 44.191006},
-      {"city": "عدن", "lat": 12.7794, "lon": 45.0367},
-      {"city": "المكلا", "lat": 14.540280, "lon": 49.127804},
-      {"city": "شبام", "lat": 15.9167, "lon": 48.6167},
-
-      {"city": "تعز", "lat": 13.5795, "lon": 44.0209},
-      {"city": "الحديدة", "lat": 14.7979, "lon": 42.9538},
-      {"city": "إب", "lat": 13.9667, "lon": 44.1833},
-      {"city": "ذمار", "lat": 14.5364, "lon": 44.3936},
-      {"city": "حضرموت-المكلا", "lat": 14.540280, "lon": 49.127804},
-    ];
+    final locations = Locations.yemenCities;
 
     showModalBottomSheet(
       context: context,
