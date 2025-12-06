@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'app_theme.dart';
+import 'home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,49 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Course',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const Scaffold(
-        body: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-                Text('Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects Explore branches to see the projects '),
-              ],
-            ),
-          ),
-        ),
-      ),
+      title: 'Weather App',
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.darkTheme,
+      home: const HomeScreen(),
     );
   }
 }
