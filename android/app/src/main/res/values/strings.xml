@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="servicedesc">NFC HCE Service</string>
+    <string name="aiddescription">NFC HCE AID Description</string>
+</resources>
+
+
+

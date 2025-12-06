@@ -86,6 +86,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.0"
+  flutter_nfc_hce:
+    dependency: "direct main"
+    description:
+      name: flutter_nfc_hce
+      sha256: "4a8b12f87db6581e81653d5b6bbb8afa980c6171ab378e315a3f39fcde0d696c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.8"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -152,6 +160,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.16.0"
+  nfc_manager:
+    dependency: "direct main"
+    description:
+      name: nfc_manager
+      sha256: f5be75e90f8f2bff3ee49fbd7ef65bdd4a86ee679c2412e71ab2846a8cff8c59
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.5.0"
   path:
     dependency: transitive
     description:
