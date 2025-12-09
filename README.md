@@ -9,8 +9,8 @@ This project contains various Flutter lectures and assignments organized in diff
 ### Branches
 
 - `main` - Main project template
-- `lecture-5-widgets-ui-basics` - Widgets and UI basics
-- `lecture-6-layouts-multi-child` - Layouts and multi-child widgets
+- `lecture-5-widgets-ui-basics` - Widgets and UI basics ( Tasbeeh app )
+- `lecture-6-layouts-multi-child` - Layouts and multi-child widgets (CV project)
 - `lecture-8-user-input` - User input handling
 - `lecture-9-navigation` - Navigation examples
 - `lecture-10-shared-preferences` - SharedPreferences and file management
